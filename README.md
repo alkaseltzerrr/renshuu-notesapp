@@ -1,3 +1,7 @@
+# 🌐 Live Demo
+
+[https://renshuu-notesapp.vercel.app/](https://renshuu-notesapp.vercel.app/)
+
 # 📝 Renshuu Notes App  
 
 A beautiful and modern note-taking application built with **React, Vite, Supabase, Tailwind CSS, and Lucide Icons**.  
