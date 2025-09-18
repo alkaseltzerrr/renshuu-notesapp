@@ -1,3 +1,26 @@
+.logout-float {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  z-index: 100;
+  background: #1a4fd7;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.6rem 1.3rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  box-shadow: 0 2px 12px rgba(26, 79, 215, 0.10);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}
+.logout-float:hover {
+  background: #2563eb;
+  color: #fff;
+}
 .auth-form {
   background: #fff;
   border-radius: 16px;

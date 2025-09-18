@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
-import { StickyNote } from 'lucide-react';
+import { StickyNote, LogOut } from 'lucide-react';
 import AuthForm from './AuthForm';
 import NotesList from './NotesList';
 import SecretNotesList from './SecretNotesList';
@@ -156,10 +156,13 @@ function App() {
 
   return (
     <div className="notes-app fullscreen">
+      <button className="logout-float" onClick={handleLogout} title="Logout">
+        <LogOut size={22} style={{verticalAlign: 'middle', marginRight: '6px'}} />
+        Logout
+      </button>
       <div className="notes-header">
         <StickyNote size={32} color="#1a4fd7" style={{marginRight: '10px'}} />
         <h1>Notes App</h1>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
       </div>
       <NotesList
         notes={myNotes}
