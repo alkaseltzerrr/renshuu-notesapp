@@ -1,0 +1,81 @@
+
+body {
+  background: #f4f8fb;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+#root {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 60, 255, 0.08);
+  text-align: left;
+}
+
+.notes-app h1 {
+  color: #1a4fd7;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.notes-app form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.notes-app input[type="text"] {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #c3dafe;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.notes-app button[type="submit"] {
+  background: #1a4fd7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.notes-app button[type="submit"]:hover {
+  background: #2563eb;
+}
+
+.notes-app ul {
+  list-style: none;
+  padding: 0;
+}
+
+.notes-app li {
+  background: #e3edfa;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notes-app li button {
+  background: #fff;
+  color: #1a4fd7;
+  border: 1px solid #c3dafe;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.notes-app li button:hover {
+  background: #1a4fd7;
+  color: #fff;
+}
