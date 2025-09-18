@@ -1,6 +1,8 @@
 
+
 import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
+import { Plus, Trash2, StickyNote } from 'lucide-react';
 import './App.css';
 
 function App() {
@@ -60,9 +62,12 @@ function App() {
   };
 
   return (
-    <div className="notes-app">
-      <h1>Notes App</h1>
-      <form onSubmit={addNote}>
+    <div className="notes-app fullscreen">
+      <div className="notes-header">
+        <StickyNote size={32} color="#1a4fd7" style={{marginRight: '10px'}} />
+        <h1>Notes App</h1>
+      </div>
+      <form className="notes-form" onSubmit={addNote}>
         <input
           type="text"
           value={input}
@@ -71,20 +76,23 @@ function App() {
           disabled={loading}
         />
         <button type="submit" disabled={loading}>
+          <Plus size={20} style={{verticalAlign: 'middle'}} />
           {loading ? 'Saving...' : 'Add Note'}
         </button>
       </form>
-      <ul>
+      <div className="notes-list">
         {notes.map((note) => (
-          <li key={note.id}>
-            {note.content}
-            <button onClick={() => deleteNote(note.id)} disabled={loading} style={{marginLeft: '10px'}}>
-              Delete
+          <div className="note-card" key={note.id}>
+            <div className="note-content">
+              <span style={{color: '#222', fontSize: '1.1rem'}}>{note.content}</span>
+            </div>
+            <button className="delete-btn" onClick={() => deleteNote(note.id)} disabled={loading}>
+              <Trash2 size={18} />
             </button>
-          </li>
+          </div>
         ))}
-      </ul>
-      {notes.length === 0 && !loading && <p>No notes yet.</p>}
+        {notes.length === 0 && !loading && <p className="no-notes">No notes yet.</p>}
+      </div>
     </div>
   );
 }
