@@ -58,19 +58,44 @@ function App() {
   }, [authChanged]);
 
   // Add a new note to Supabase
-  const addNote = async (e) => {
-    e.preventDefault();
-    if (input.trim() === '' || !user) return;
+  const addNote = async (content, tags = []) => {
+    if (content.trim() === '' || !user) return;
     setLoading(true);
     const { data, error } = await supabase
       .from('notes')
-      .insert([{ content: input, user_id: user.id }])
+      .insert([{ content, user_id: user.id, tags, is_pinned: false }])
       .select();
     if (error) {
       console.error('Error adding note:', error.message);
     } else {
       setNotes([data[0], ...notes]);
       setInput('');
+    }
+    setLoading(false);
+  };
+
+  // Update a note in Supabase
+  const updateNote = async (id, content, tags = [], isPinned = null) => {
+    setLoading(true);
+    const updateData = { 
+      content, 
+      tags, 
+      updated_at: new Date().toISOString() 
+    };
+    if (isPinned !== null) {
+      updateData.is_pinned = isPinned;
+    }
+    
+    const { data, error } = await supabase
+      .from('notes')
+      .update(updateData)
+      .eq('id', id)
+      .eq('user_id', user.id)
+      .select();
+    if (error) {
+      console.error('Error updating note:', error.message);
+    } else {
+      setNotes(notes.map(note => note.id === id ? data[0] : note));
     }
     setLoading(false);
   };
@@ -92,19 +117,44 @@ function App() {
   };
 
   // Add a new secret note
-  const addSecretNote = async (e) => {
-    e.preventDefault();
-    if (secretInput.trim() === '' || !user) return;
+  const addSecretNote = async (content, tags = []) => {
+    if (content.trim() === '' || !user) return;
     setLoading(true);
     const { data, error } = await supabase
       .from('secret_notes')
-      .insert([{ content: secretInput, user_id: user.id }])
+      .insert([{ content, user_id: user.id, tags, is_pinned: false }])
       .select();
     if (error) {
       console.error('Error adding secret note:', error.message);
     } else {
       setSecretNotes([data[0], ...secretNotes]);
       setSecretInput('');
+    }
+    setLoading(false);
+  };
+
+  // Update a secret note
+  const updateSecretNote = async (id, content, tags = [], isPinned = null) => {
+    setLoading(true);
+    const updateData = { 
+      content, 
+      tags, 
+      updated_at: new Date().toISOString() 
+    };
+    if (isPinned !== null) {
+      updateData.is_pinned = isPinned;
+    }
+    
+    const { data, error } = await supabase
+      .from('secret_notes')
+      .update(updateData)
+      .eq('id', id)
+      .eq('user_id', user.id)
+      .select();
+    if (error) {
+      console.error('Error updating secret note:', error.message);
+    } else {
+      setSecretNotes(secretNotes.map(note => note.id === id ? data[0] : note));
     }
     setLoading(false);
   };
@@ -171,6 +221,7 @@ function App() {
         loading={loading}
         addNote={addNote}
         deleteNote={deleteNote}
+        updateNote={updateNote}
       />
       <SecretNotesList
         notes={secretNotes}
@@ -179,6 +230,7 @@ function App() {
         loading={loading}
         addNote={addSecretNote}
         deleteNote={deleteSecretNote}
+        updateNote={updateSecretNote}
       />
       <OtherNotesList
         notes={otherNotes}
